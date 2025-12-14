@@ -53,4 +53,4 @@ function checkTimeMeeting (startWorkDay, endWorkDay, timeMeeting, durationMeetin
   }
   return flag;
 }
-console.log(checkTimeMeeting('8:00', '17:30', '08:00', 900));
+checkTimeMeeting('09:00', '19:00', '18:30', 60);
