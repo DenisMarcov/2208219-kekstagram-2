@@ -31,26 +31,14 @@ extractNumbers(stri3);
 
 // module5-task2
 function checkTimeMeeting (startWorkDay, endWorkDay, timeMeeting, durationMeeting) {
-  const [startHours, startMinutes] = startWorkDay.split(':').map(Number);
-  const [endHours, endMinutes] = endWorkDay.split(':').map(Number);
-  const [meetingHours, meetingMinutes] = timeMeeting.split(':').map(Number);
-
-  let flag = true;
-
-  if (startHours <= meetingHours && startMinutes <= meetingMinutes && endHours >= meetingHours && endMinutes >= meetingMinutes){
-    const durationMeetingHours = Math.floor(durationMeeting / 60);
-    const durationMeetingMinutes = durationMeeting % 60;
-    if (meetingHours + durationMeetingHours > endHours){
-      flag = false;
-      return flag;
-    } else if (meetingHours + durationMeetingHours === endHours && meetingMinutes + durationMeetingMinutes > endMinutes){
-      flag = false;
-      return flag;
-    }
-  } else {
-    flag = false;
-    return flag;
+  function toMinutes (timeStr) {
+    const timeArr = timeStr.split(':');
+    return Number(timeArr[0]) * 60 + Number(timeArr[1]);
   }
-  return flag;
+  const timeStartWork = toMinutes(startWorkDay);
+  const timeEndWork = toMinutes(endWorkDay);
+  const timeMeetingStart = toMinutes(timeMeeting);
+  const timeMeetingEnd = timeMeetingStart + durationMeeting;
+  return (timeMeetingStart >= timeStartWork) && (timeMeetingEnd <= timeEndWork);
 }
-checkTimeMeeting('09:00', '19:00', '18:30', 60);
+console.log(checkTimeMeeting('09:00', '19:00', '18:30', 60));
