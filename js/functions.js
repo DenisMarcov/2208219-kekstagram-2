@@ -28,3 +28,17 @@ function extractNumbers (str) {
 }
 
 extractNumbers(stri3);
+
+// module5-task2
+function checkTimeMeeting (startWorkDay, endWorkDay, timeMeeting, durationMeeting) {
+  function toMinutes (timeStr) {
+    const [h, m] = timeStr.split(':');
+    return Number(h) * 60 + Number(m);
+  }
+  const timeStartWork = toMinutes(startWorkDay);
+  const timeEndWork = toMinutes(endWorkDay);
+  const timeMeetingStart = toMinutes(timeMeeting);
+  const timeMeetingEnd = timeMeetingStart + durationMeeting;
+  return (timeMeetingStart >= timeStartWork) && (timeMeetingEnd <= timeEndWork);
+}
+checkTimeMeeting('09:00', '19:00', '18:30', 60);
