@@ -2,7 +2,7 @@ import * as mathfunc from './mathfuncs.js';
 import * as consts from './constants.js';
 
 const idComments = [];
-function message() {
+function createMessage() {
   const textComments = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -13,13 +13,13 @@ function message() {
     'Лица у людей на фотке перекошены, как будто их избивают.',
     'Как можно было поймать такой неудачный момент?!'
   ];
-  if (mathfunc.randomCeil(2) === 2) {
-    return `${textComments[mathfunc.randomFloor(textComments.length)]} ${textComments[[mathfunc.randomFloor(textComments.length)]]}`;
+  if (mathfunc.getRandomCeil(2) === 2) {
+    return `${textComments[mathfunc.getRandomFloor(textComments.length)]} ${textComments[[mathfunc.getRandomFloor(textComments.length)]]}`;
   } else {
-    return textComments[[mathfunc.randomFloor(textComments.length)]];
+    return textComments[[mathfunc.getRandomFloor(textComments.length)]];
   }
 }
-function createObjects(count, minlikes, maxlike, commentcount, avatarcount) {
+function createPhotos(count, minlikes, maxlike, commentcount, avatarcount) {
   const descriptions = [
     'Закат над городом',
     'Уютное утро с кофе',
@@ -51,8 +51,8 @@ function createObjects(count, minlikes, maxlike, commentcount, avatarcount) {
   for (let i = 1; i <= count; i++) {
     const id = i;
     const url = `photos/${i}.jpg`;
-    const description = descriptions[mathfunc.randomFloor(descriptions.length)];
-    const likes = mathfunc.randomFloor(maxlike - minlikes) + minlikes;
+    const description = descriptions[mathfunc.getRandomFloor(descriptions.length)];
+    const likes = mathfunc.getRandomFloor(maxlike - minlikes) + minlikes;
     const comments = createComment(commentcount, avatarcount);
     const photo = {
       id,
@@ -94,15 +94,15 @@ function createComment(commentcount, avatarcount) {
     'Ярослав'
   ];
   const comments = [];
-  for (let i = 1; i <= mathfunc.randomCeil(commentcount); i++) {
+  for (let i = 1; i <= mathfunc.getRandomCeil(commentcount); i++) {
     const id = idComments.length - 1;
     idComments.push(id);
-    const avatar = `img/avatar-${mathfunc.randomCeil(avatarcount)}.svg`;
-    const name = names[mathfunc.randomFloor(names.length)];
+    const avatar = `img/avatar-${mathfunc.getRandomCeil(avatarcount)}.svg`;
+    const name = names[mathfunc.getRandomFloor(names.length)];
     const comment = {
       id,
       avatar,
-      message: message(),
+      message: createMessage(),
       name
     };
     comments.push(comment);
@@ -112,4 +112,4 @@ function createComment(commentcount, avatarcount) {
 }
 
 
-createObjects(consts.OBJCOUNT, consts.MAXLIKE, consts.MINLIKE, consts.COMMENTCOUNT, consts.AVATARCOUNT);
+createPhotos(consts.OBJCOUNT, consts.MAXLIKE, consts.MINLIKE, consts.COMMENTCOUNT, consts.AVATARCOUNT);
