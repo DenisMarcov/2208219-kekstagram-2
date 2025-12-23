@@ -47,7 +47,7 @@ function createObjects(count, minlikes, maxlike, commentcount, avatarcount) {
     'Домик в деревне',
     'Скамейка под деревом'
   ];
-  const photosArr = [];
+  const photos = [];
   for (let i = 1; i <= count; i++) {
     const id = i;
     const url = `photos/${i}.jpg`;
@@ -61,9 +61,9 @@ function createObjects(count, minlikes, maxlike, commentcount, avatarcount) {
       likes,
       comments
     };
-    photosArr.push(photo);
+    photos.push(photo);
   }
-  return photosArr;
+  return photos;
 }
 function createComment(commentcount, avatarcount) {
   const names = [
