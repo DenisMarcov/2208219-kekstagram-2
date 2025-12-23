@@ -32,8 +32,8 @@ extractNumbers(stri3);
 // module5-task2
 function checkTimeMeeting (startWorkDay, endWorkDay, timeMeeting, durationMeeting) {
   function toMinutes (timeStr) {
-    const [h, m] = timeStr.split(':').map(Number);
-    return h * 60 + m;
+    const [h, m] = timeStr.split(':');
+    return Number(h) * 60 + Number(m);
   }
   const timeStartWork = toMinutes(startWorkDay);
   const timeEndWork = toMinutes(endWorkDay);
