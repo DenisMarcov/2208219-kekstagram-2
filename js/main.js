@@ -1,1 +1,1 @@
-import './createphotos.js';
+import './picturecreator.js';
