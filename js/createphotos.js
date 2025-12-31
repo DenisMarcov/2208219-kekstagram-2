@@ -1,5 +1,4 @@
 import * as mathfunc from './mathfuncs.js';
-import * as consts from './constants.js';
 
 const idComments = [];
 function createMessage() {
@@ -111,5 +110,4 @@ function createComment(commentcount, avatarcount) {
   return comments;
 }
 
-
-createPhotos(consts.OBJCOUNT, consts.MAXLIKE, consts.MINLIKE, consts.COMMENTCOUNT, consts.AVATARCOUNT);
+export { createPhotos };
