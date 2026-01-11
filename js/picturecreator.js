@@ -1,5 +1,7 @@
 import { createPhotos } from './createphotos.js';
 import * as consts from './constants.js';
+import {openBigPicture} from './openphoto.js';
+import {closeBigPicture} from './closephoto.js';
 
 const pictures = document.querySelector('.pictures');
 const picture = document.querySelector('#picture').content.querySelector('.picture');
@@ -14,7 +16,11 @@ function renderPictures() {
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     fragment.appendChild(pictureElement);
+    pictureElement.addEventListener('click', () => {
+      openBigPicture(url, likes, comments, description);
+    });
   });
 }
+closeBigPicture();
 renderPictures();
 pictures.appendChild(fragment);
