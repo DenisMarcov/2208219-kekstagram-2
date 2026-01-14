@@ -6,7 +6,7 @@ const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const SCALE_STEP = 25;
-let currentScale = scaleControlValue.value;
+let currentScale = parseInt(scaleControlValue.value, 10);
 
 function updateScale() {
   imgPreview.style.transform = `scale(${currentScale / 100})`;
