@@ -6,7 +6,26 @@ const commentLoader = bigPicture.querySelector('.social__comments-loader');
 const commentsList = bigPicture.querySelector('.social__comments');
 let commentsToShowCount = commentsToShow;
 let currentComments = [];
+const body = document.querySelector('body');
+const closeButton = bigPicture.querySelector('#picture-cancel');
+import { onEsc } from './utils.js';
 
+function onBigPictureEsc(evt) {
+  if (onEsc(evt)) {
+    closeBigPicture();
+  }
+}
+
+function closeBigPicture() {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onBigPictureEsc);
+}
+
+closeButton.addEventListener('click', closeBigPicture);
+
+
+export { closeBigPicture };
 
 function openBigPicture(srcImg, likes, comments, descriptionOfPhoto) {
   commentsToShowCount = commentsToShow;
@@ -21,12 +40,11 @@ function openBigPicture(srcImg, likes, comments, descriptionOfPhoto) {
 
   bigPicture.classList.remove('hidden');
 
-  const body = document.querySelector('body');
   body.classList.add('modal-open');
   currentComments = comments;
 
   renderComments(comments, commentsToShowCount);
-
+  document.addEventListener('keydown', onBigPictureEsc);
 }
 
 function exportComments(comment) {
