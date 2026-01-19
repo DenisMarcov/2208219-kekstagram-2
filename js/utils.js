@@ -6,3 +6,10 @@ export function getRandomFloor
 export function getRandomCeil(number) {
   return Math.ceil(Math.random() * number);
 }
+
+export function onEsc(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    return true;
+  }
+}
