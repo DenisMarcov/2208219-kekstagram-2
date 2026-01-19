@@ -81,7 +81,6 @@ effectsContainer.addEventListener('change', (evt) => {
 
     if (currentEffect === 'none') {
       effectLevelContainer.classList.add('hidden');
-      effectLevelValue.value = '100.00';
       imagePreview.style.filter = '';
     } else {
       effectLevelContainer.classList.remove('hidden');
