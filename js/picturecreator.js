@@ -47,5 +47,4 @@ async function init() {
     showDataError();
   }
 }
-
 init();
