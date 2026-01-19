@@ -1,2 +1,4 @@
 import './picturecreator.js';
-import './sendphotoform.js';
+import { initUploadForm } from './sendphotoform.js';
+
+initUploadForm();

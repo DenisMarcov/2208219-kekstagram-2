@@ -1,31 +1,23 @@
 import * as consts from './constants.js';
+import { onEsc } from './utils.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const commentsToShow = consts.COMMENTSTEP;
 const commentsCount = bigPicture.querySelector('.social__comment-total-count');
 const commentLoader = bigPicture.querySelector('.social__comments-loader');
 const commentsList = bigPicture.querySelector('.social__comments');
-let commentsToShowCount = commentsToShow;
-let currentComments = [];
+const showingComments = bigPicture.querySelector('.social__comment-shown-count');
 const body = document.querySelector('body');
 const closeButton = bigPicture.querySelector('#picture-cancel');
-import { onEsc } from './utils.js';
+
+let commentsToShowCount = commentsToShow;
+let currentComments = [];
 
 function onBigPictureEsc(evt) {
   if (onEsc(evt)) {
     closeBigPicture();
   }
 }
-
-function closeBigPicture() {
-  bigPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onBigPictureEsc);
-}
-
-closeButton.addEventListener('click', closeBigPicture);
-
-
-export { closeBigPicture };
 
 function openBigPicture(srcImg, likes, comments, descriptionOfPhoto) {
   commentsToShowCount = commentsToShow;
@@ -47,7 +39,7 @@ function openBigPicture(srcImg, likes, comments, descriptionOfPhoto) {
   document.addEventListener('keydown', onBigPictureEsc);
 }
 
-function exportComments(comment) {
+function createCommentElement(comment) {
 
   const li = document.createElement('li');
   li.classList.add('social__comment');
@@ -74,14 +66,13 @@ function renderComments(comments, countToShow) {
 
   commentsCount.textContent = comments.length;
 
-  const showingComments = bigPicture.querySelector('.social__comment-shown-count');
   showingComments.textContent = countToShow;
 
 
   const commentsFragment = document.createDocumentFragment();
 
   comments.slice(0, countToShow).forEach((comment) => {
-    commentsFragment.appendChild(exportComments(comment));
+    commentsFragment.appendChild(createCommentElement(comment));
   });
   if (comments.length <= countToShow) {
     showingComments.textContent = comments.length;
@@ -99,4 +90,13 @@ commentLoader.addEventListener('click', () => {
   renderComments(currentComments, commentsToShowCount);
 });
 
+function closeBigPicture() {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onBigPictureEsc);
+}
+
+closeButton.addEventListener('click', closeBigPicture);
+
 export { openBigPicture };
+export { closeBigPicture };

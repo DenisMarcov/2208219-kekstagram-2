@@ -28,4 +28,6 @@ export function resetScale() {
   currentScale = MAX_SCALE;
   updateScale();
 }
-updateScale();
+export function initScale() {
+  updateScale();
+}

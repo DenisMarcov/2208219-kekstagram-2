@@ -1,47 +1,51 @@
+import { showDataError } from './utils.js';
 import { openBigPicture } from './openclosephoto.js';
-import { closeBigPicture } from './openclosephoto.js';
-import { newFetch } from './serverutils.js';
+import { loadPhotosData } from './data.js';
+import { initFiltersHomepage } from './filtershomepage.js';
 
-const pictures = document.querySelector('.pictures');
-const picture = document.querySelector('#picture').content.querySelector('.picture');
+export function initPictures(data) {
+  const pictures = document.querySelector('.pictures');
+  const picture = document
+    .querySelector('#picture')
+    .content
+    .querySelector('.picture');
 
-
-function renderPictures(data) {
   const fragment = document.createDocumentFragment();
 
   data.forEach(({ url, likes, description, comments }) => {
     const pictureElement = picture.cloneNode(true);
+
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
-    fragment.appendChild(pictureElement);
+
     pictureElement.addEventListener('click', () => {
       openBigPicture(url, likes, comments, description);
     });
 
     fragment.appendChild(pictureElement);
   });
+
   pictures.appendChild(fragment);
 }
 
-function showDataError() {
-  const template = document.querySelector('#data-error')
-    .content
-    .querySelector('.data-error');
+export function clearPictures() {
+  const pictures = document.querySelector('.pictures');
+  const renderedPictures = pictures.querySelectorAll('.picture');
 
-  const errorElement = template.cloneNode(true);
-
-  document.body.appendChild(errorElement);
-
-  setTimeout(() => {
-    errorElement.remove();
-  }, 5000);
+  renderedPictures.forEach((picture) => picture.remove());
 }
 
-closeBigPicture();
-newFetch()
-  .then((data) => renderPictures(data))
-  .catch(() => {
+
+async function init() {
+  try {
+    const data = await loadPhotosData();
+    initPictures(data);
+    initFiltersHomepage(data);
+  } catch {
     showDataError();
-  });
+  }
+}
+
+init();
