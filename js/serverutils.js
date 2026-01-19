@@ -3,6 +3,7 @@ export function newFetch() {
     .then((response) => response.json());
 }
 
+
 export function sendFormData(formData) {
   return fetch(
     'https://31.javascript.htmlacademy.pro/kekstagram',

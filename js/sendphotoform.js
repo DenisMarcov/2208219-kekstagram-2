@@ -15,6 +15,7 @@ export function initUploadForm() {
   const descriptionInput = uploadForm.querySelector('.text__description');
   const submitButton = uploadForm.querySelector('.img-upload__submit');
   const previewImage = uploadForm.querySelector('.img-upload__preview img');
+  const effectsPreviews = uploadForm.querySelectorAll('.effects__preview');
   const body = document.body;
   const HASHTAG_REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -85,6 +86,9 @@ export function initUploadForm() {
     hashtagsInput.value = '';
     resetEffects();
     resetScale();
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = '';
+    });
   }
 
   function toggleSubmitButton(isDisabled) {
@@ -113,10 +117,16 @@ export function initUploadForm() {
       return;
     }
 
-    previewImage.src = URL.createObjectURL(file);
+    const imageUrl = URL.createObjectURL(file);
+
+    previewImage.src = imageUrl;
+
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url(${imageUrl})`;
+    });
+
     openForm();
   });
-
 
   cancelButton.addEventListener('click', closeForm);
 
